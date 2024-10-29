@@ -11,8 +11,10 @@ function App() {
         mode: "no-cors"
       });
       const text = await response.text();
+      console.log(await response);
       setDocContent(text);
       console.log(text);
+      console.log("Running")
     }
     fetchDocContent();
   }, []);
