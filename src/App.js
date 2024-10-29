@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState, useEffect } from 'react';
 
 function App() {
+
+  const [docContent, setDocContent] = useState('');
+  
+  useEffect(() => {
+    const fetchDocContent = async () => {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyW4SpA8MK00rG2PJ4yvGqbyG6F3ovG-BgPE7sLUWs065mS_mwqKpwqo-tSxfrCwZsWEA/exec', {
+        mode: "no-cors"
+      });
+      const text = await response.text();
+      setDocContent(text);
+      console.log(text);
+    }
+    fetchDocContent();
+  }, []);
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
 }
-
+//https://script.google.com/macros/s/AKfycbyW4SpA8MK00rG2PJ4yvGqbyG6F3ovG-BgPE7sLUWs065mS_mwqKpwqo-tSxfrCwZsWEA/exec
 export default App;
