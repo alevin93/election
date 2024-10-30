@@ -61,18 +61,23 @@ function App() {
             <img src={IMAGE} alt="Vote Counts" className="background-image" />
             <div className='kamala-name'>Kamala Harris</div>
             <div className='trump-name' >Donald J. Trump</div>
+            
             <div className='kamala-votes'>{harrisVotes}</div>
             <div className='trump-votes'>{trumpVotes}</div>
+          </div>
+          <div className='vote-container'>
+          <div className='trump-vote-container'>hello</div>
+          <div className='kamala-vote-container'>hello</div>
           </div>
           </div>
         </div>
         <div className="chart-container"> {/* Chart container at the bottom */}
-              <div className="harris-bar" style={{ width: `${harrisVotes/totalVotes*100}%`}}></div>
-              <div className="trump-bar" style={{ width: `${trumpVotes/totalVotes*100}%` }}></div>
+              <div className="harris-bar" style={{ width: `${harrisPercentage}%`}}></div>
+              <div className="trump-bar" style={{ width: `${trumpPercentage}%` }}></div>
             </div>
             <div className="pc-container"> {/*Show percentages */}
-              <div className="harris-pc" style={{ width: `${harrisVotes/totalVotes*100}%` }}>{Math.round(harrisVotes/totalVotes*100)}%</div>
-              <div className="trump-pc" style={{ width: `${trumpVotes/totalVotes*100}%` }}>{Math.round(trumpVotes/totalVotes*100)}%</div>
+              <div className="harris-pc" style={{ width: `${harrisPercentage}%` }}>{Math.round(harrisPercentage)}%</div>
+              <div className="trump-pc" style={{ width: `${trumpPercentage}%` }}>{Math.round(trumpPercentage)}%</div>
             </div>
       </header>
     </div>

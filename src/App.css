@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');  
 
 .App {
   text-align: center;
@@ -14,6 +14,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .content-wrapper { 
@@ -38,9 +39,10 @@
   width: 100%; /* Or your desired width */
   height: auto; /* Maintain aspect ratio */
   display: block; /* Prevent extra space below the image */
-  border-radius: .5rem;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
 }
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');  
+
 
 .kamala-name, 
 .trump-name {
@@ -83,6 +85,31 @@
   position: absolute; /* Add this to position the votes */
   z-index: 1;          /* Ensure they are above the image */
   bottom: 0;           /* Adjust vertical position as needed */
+}
+
+.vote-container {
+  display: flex;
+}
+
+.trump-vote-container, 
+.kamala-vote-container
+{
+  display: grid;
+  width: 50%;
+  height: 5rem;
+  background-color: black;
+  text-align: center;
+  justify-content:center;
+  
+  
+
+}
+
+.trump-vote-container {
+  border-bottom-left-radius: .5rem;
+}
+.kamala-vote-container {
+  border-bottom-right-radius: .5rem;
 }
 
 .trump-votes {
