@@ -1,31 +1,82 @@
 import './App.css';
-import React, {useState, useEffect } from 'react';
+import IMAGE from './image.jpg';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  const DOWNLOAD_LINK = "https://docs.google.com/spreadsheets/d/1GGmVEGCxgqsrmhiW2iRh6UcfpVg7cLkU8DewOh0Lpr8/gviz/tq?tqx=out:txt";
+  const [harrisVotes, setHarrisVotes] = useState(0);
+  const [trumpVotes, setTrumpVotes] = useState(0);
 
-  const [docContent, setDocContent] = useState('');
-  
   useEffect(() => {
-    const fetchDocContent = async () => {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyW4SpA8MK00rG2PJ4yvGqbyG6F3ovG-BgPE7sLUWs065mS_mwqKpwqo-tSxfrCwZsWEA/exec', {
-        mode: "no-cors"
-      });
+    const fetchData = async () => {
+      const response = await fetch(DOWNLOAD_LINK);
       const text = await response.text();
-      console.log(await response);
-      setDocContent(text);
-      console.log(text);
-      console.log("Running")
-    }
-    fetchDocContent();
+
+      // Extract the JSON data from the response
+      const jsonMatch = text.match(/google.visualization.Query.setResponse\((.+)\);/);
+      if (jsonMatch) {
+        const jsonData = JSON.parse(jsonMatch[1]);
+        const rows = jsonData.table.rows;
+
+        let harris = 0;
+        let trump = 0;
+
+        rows.forEach(row => {
+          const president = row.c[1].v;
+          if (president === "Harris") {
+            harris++;
+          } else if (president === "Trump") {
+            trump++;
+          }
+        });
+
+        setHarrisVotes(harris);
+        setTrumpVotes(trump);
+      }
+    };
+
+    // Fetch data initially
+    fetchData();
+
+    // Set up interval to fetch data every 3-10 seconds
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, (Math.floor(Math.random() * 8) + 3) * 1000); // 3-10 seconds
+
+    // Clean up interval on unmount
+    return () => clearInterval(intervalId);
   }, []);
-  
+
+  const totalVotes = harrisVotes + trumpVotes;
+  const harrisPercentage = totalVotes === 0 ? 50 : (harrisVotes / totalVotes) * 100;
+  const trumpPercentage = totalVotes === 0 ? 50 : (trumpVotes / totalVotes) * 100;
+
   return (
     <div className="App">
       <header className="App-header">
+        <div className="content-wrapper">
+          <h1>Chatsworth Charter High Election Results</h1>
+          <div className="container">
+          <div className='image-container'>
+            <img src={IMAGE} alt="Vote Counts" className="background-image" />
+            <div className='kamala-name'>Kamala Harris</div>
+            <div className='trump-name' >Donald J. Trump</div>
+            <div className='kamala-votes'>{harrisVotes}</div>
+            <div className='trump-votes'>{trumpVotes}</div>
+          </div>
+          </div>
+        </div>
+        <div className="chart-container"> {/* Chart container at the bottom */}
+              <div className="harris-bar" style={{ width: `${harrisVotes/totalVotes*100}%`}}></div>
+              <div className="trump-bar" style={{ width: `${trumpVotes/totalVotes*100}%` }}></div>
+            </div>
+            <div className="pc-container"> {/*Show percentages */}
+              <div className="harris-pc" style={{ width: `${harrisVotes/totalVotes*100}%` }}>{Math.round(harrisVotes/totalVotes*100)}%</div>
+              <div className="trump-pc" style={{ width: `${trumpVotes/totalVotes*100}%` }}>{Math.round(trumpVotes/totalVotes*100)}%</div>
+            </div>
       </header>
     </div>
   );
 }
-//https://script.google.com/macros/s/AKfycbyW4SpA8MK00rG2PJ4yvGqbyG6F3ovG-BgPE7sLUWs065mS_mwqKpwqo-tSxfrCwZsWEA/exec
-//https://script.google.com/u/0/home/projects/1Q3nC3DRzQgig4ZZYAPlAfILgLlgeRX9deRCWs1I0mch3uOBL24_j8RQ8/edit
+
 export default App;
