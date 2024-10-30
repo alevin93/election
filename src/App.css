@@ -88,11 +88,13 @@
 .trump-votes {
   right: 0;
   width: 50%;         /* Add width for better positioning */
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
 
 .kamala-votes {
   left: 0;
   width: 50%;         /* Add width for better positioning */
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
 .vote-count {
   font-size: 2.5em; 
