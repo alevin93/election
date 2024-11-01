@@ -33,6 +33,18 @@
 .image-container {
   position: relative; /* Establish the container for positioning */
   width: 100%;
+  display: flex; /* Enable flexbox for image layout */
+  justify-content: space-around; /* Distribute images evenly */
+}
+
+.candidate-image {
+  width: 45%; /* Adjust as needed to control image size */
+  height: auto;
+}
+
+.image-container {
+  position: relative; /* Establish the container for positioning */
+  width: 100%;
 }
 
 .background-image {
@@ -48,28 +60,47 @@
 .trump-name {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
-  font-size: 3rem;
+  font-size: 2rem;
+  margin-bottom: .5rem;
   color: #ffffff;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  width: 94.5%;
+  border-radius: .5rem;
   line-height: 1.5;
   letter-spacing: 0.5px;
   text-align: center;
 }
 
 .kamala-name {
-  position: absolute;  /* Center the names horizontally */
-  z-index: 1;
-  width: 50%;
-  left: 0; /* Adjust for Kamala's name */
-  top: -5%;
 }
 
 .trump-name {
-  position: absolute; /* Adjust this value to control how much they hang off */
-  right: 0;  /* Center the names horizontally */
-  z-index: 1;
-  width: 50%;
-  top: -5%;
+
+}
+
+.image-container {
+  position: relative; 
+  width: 100%;
+  display: flex; 
+  justify-content: space-around; 
+}
+
+.candidate-container { 
+  width: 45%; 
+  display: flex;           /* Added for vertical stacking */
+  flex-direction: column; /* Added for vertical stacking */
+  align-items: center;   /* Added for horizontal centering */
+}
+
+.portrait-back {
+  width: 100%;
+}
+
+.candidate-image {
+  width: 90%; 
+  height: auto;
+  border: solid black .5vw;
+  border-radius: .5rem;
 }
 
 .trump-votes,
@@ -87,29 +118,27 @@
   bottom: 0;           /* Adjust vertical position as needed */
 }
 
-.vote-container {
-  display: flex;
-}
-
 .trump-vote-container, 
 .kamala-vote-container
 {
   display: grid;
-  width: 50%;
-  height: 5rem;
+  width: 90%;
+  height: 2.5rem;
+  text-align: center;
+  align-items: center;
   background-color: black;
   text-align: center;
+  border: solid black .5vw;
   justify-content:center;
-  
-  
-
+  border-radius: .5rem;
+  /*border-bottom-right-radius: .5rem;
+  border-bottom-left-radius: .5rem;*/
 }
 
 .trump-vote-container {
-  border-bottom-left-radius: .5rem;
 }
 .kamala-vote-container {
-  border-bottom-right-radius: .5rem;
+  
 }
 
 .trump-votes {
@@ -174,3 +203,5 @@
 .trump-pc {
   color: white;
 }
+
+

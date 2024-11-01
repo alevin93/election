@@ -1,9 +1,10 @@
 import './App.css';
-import IMAGE from './image.jpg';
+import TRUMP_IMAGE from './trump.jpg';
+import HARRIS_IMAGE from './harris.jpg';
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const DOWNLOAD_LINK = "https://docs.google.com/spreadsheets/d/1GGmVEGCxgqsrmhiW2iRh6UcfpVg7cLkU8DewOh0Lpr8/gviz/tq?tqx=out:txt";
+  const DOWNLOAD_LINK = "https://docs.google.com/spreadsheets/d/1kPWcjOQ8ComiZWeSHB9sL02AvCjr0mQTf_oU_bOAOYE/gviz/tq?tqx=out:txt";
   const [harrisVotes, setHarrisVotes] = useState(0);
   const [trumpVotes, setTrumpVotes] = useState(0);
 
@@ -11,25 +12,27 @@ function App() {
     const fetchData = async () => {
       const response = await fetch(DOWNLOAD_LINK);
       const text = await response.text();
-
+      console.log(await text);
       // Extract the JSON data from the response
       const jsonMatch = text.match(/google.visualization.Query.setResponse\((.+)\);/);
       if (jsonMatch) {
         const jsonData = JSON.parse(jsonMatch[1]);
+        
         const rows = jsonData.table.rows;
 
         let harris = 0;
         let trump = 0;
 
         rows.forEach(row => {
-          const president = row.c[1].v;
-          if (president === "Harris") {
+          const president = row.c[5].v;
+          if (president === "Kamala Harris (D)") {
             harris++;
-          } else if (president === "Trump") {
+          } else if (president === "Donald J. Trump (R)") {
             trump++;
           }
         });
-
+        console.log(harris);
+        console.log(trump);
         setHarrisVotes(harris);
         setTrumpVotes(trump);
       }
@@ -57,18 +60,22 @@ function App() {
         <div className="content-wrapper">
           <h1>Chatsworth Charter High Election Results</h1>
           <div className="container">
-          <div className='image-container'>
-            <img src={IMAGE} alt="Vote Counts" className="background-image" />
-            <div className='kamala-name'>Kamala Harris</div>
-            <div className='trump-name' >Donald J. Trump</div>
-            
-            <div className='kamala-votes'>{harrisVotes}</div>
-            <div className='trump-votes'>{trumpVotes}</div>
-          </div>
-          <div className='vote-container'>
-          <div className='trump-vote-container'>hello</div>
-          <div className='kamala-vote-container'>hello</div>
-          </div>
+            <div className="image-container">
+              <div className="candidate-container"> 
+                <div className='kamala-name'>Kamala Harris</div>
+                <div className="potrait-back">
+                  <img src={HARRIS_IMAGE} alt="Kamala Harris" className="candidate-image" />
+                </div>
+                <div className='kamala-vote-container'>{harrisVotes}</div>
+              </div>
+              <div className="candidate-container"> 
+                <div className='trump-name'>Donald J. Trump</div>
+                <div className="potrait-back">
+                  <img src={TRUMP_IMAGE} alt="Donald J. Trump" className="candidate-image" />
+                </div>
+                <div className='trump-vote-container'>{trumpVotes}</div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="chart-container"> {/* Chart container at the bottom */}
