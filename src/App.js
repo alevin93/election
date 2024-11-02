@@ -7,7 +7,6 @@ function App() {
   const DOWNLOAD_LINK = "https://docs.google.com/spreadsheets/d/1kPWcjOQ8ComiZWeSHB9sL02AvCjr0mQTf_oU_bOAOYE/gviz/tq?tqx=out:txt";
   const [harrisVotes, setHarrisVotes] = useState(0);
   const [trumpVotes, setTrumpVotes] = useState(0);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(DOWNLOAD_LINK);
@@ -58,7 +57,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="content-wrapper">
-          <h1>Chatsworth Charter High Election Results</h1>
+          <h1 className="header-text">CCHS Election</h1>
           <div className="container">
             <div className="image-container">
               <div className="candidate-container"> 
