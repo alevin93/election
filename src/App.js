@@ -18,7 +18,7 @@ function App() {
         const jsonData = JSON.parse(jsonMatch[1]);
         
         const rows = jsonData.table.rows;
-
+        console.log(rows);
         let harris = 0;
         let trump = 0;
 
@@ -26,7 +26,7 @@ function App() {
           const president = row.c[5].v;
           if (president === "Kamala Harris (D)") {
             harris++;
-          } else if (president === "Donald J. Trump (R)") {
+          } else if (president === "Donald Trump (R)") {
             trump++;
           }
         });
