@@ -7,27 +7,29 @@ function App() {
   const DOWNLOAD_LINK = "https://docs.google.com/spreadsheets/d/1kPWcjOQ8ComiZWeSHB9sL02AvCjr0mQTf_oU_bOAOYE/gviz/tq?tqx=out:txt";
   const [harrisVotes, setHarrisVotes] = useState(0);
   const [trumpVotes, setTrumpVotes] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(DOWNLOAD_LINK);
       const text = await response.text();
-      console.log(await text);
       // Extract the JSON data from the response
       const jsonMatch = text.match(/google.visualization.Query.setResponse\((.+)\);/);
       if (jsonMatch) {
         const jsonData = JSON.parse(jsonMatch[1]);
         
         const rows = jsonData.table.rows;
-        console.log(rows);
+
         let harris = 0;
         let trump = 0;
 
         rows.forEach(row => {
-          const president = row.c[5].v;
-          if (president === "Kamala Harris (D)") {
-            harris++;
-          } else if (president === "Donald Trump (R)") {
-            trump++;
+          if(row.c[5]) {
+            const president = row.c[5].v;
+            if (president === "Kamala Harris (D)") {
+              harris++;
+            } else if (president === "Donald Trump (R)") {
+              trump++;
+            }
           }
         });
         console.log(harris);
@@ -57,7 +59,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="content-wrapper">
-          <h1 className="header-text">CCHS Election</h1>
+          <h1>Chatsworth Charter High Election Results</h1>
           <div className="container">
             <div className="image-container">
               <div className="candidate-container"> 
